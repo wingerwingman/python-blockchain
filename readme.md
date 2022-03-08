@@ -20,4 +20,4 @@
 
 ## Run a peer instance 
 
-### export PEER=True && python3 -m backen.app
+### export PEER=True && python3 -m backend.app
