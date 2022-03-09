@@ -16,8 +16,12 @@
 
 ### Make sure to activate the virtual environment 
 
-### python3 -m backen.app
+### python3 -m backend.app
 
 ## Run a peer instance 
 
 ### export PEER=True && python3 -m backend.app
+
+### Run the frontend 
+
+## cd into frontend folder and run npm run start
