@@ -25,3 +25,7 @@
 ### Run the frontend 
 
 ## cd into frontend folder and run npm run start
+
+## Seed The backend with data 
+
+### export SEED_DATA=True && python3 -m backend.app
