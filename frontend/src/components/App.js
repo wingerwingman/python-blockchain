@@ -20,6 +20,7 @@ function App() {
       <br />
       <Link to="/blockchain">Blockchain</Link>
       <Link to="/conduct-transaction">ConductTransaction</Link>
+      <Link to="/transaction-pool">TransactionPool</Link>
       <br/>
       <div className="wallet-info">
         <div className="WalletInfo">Address: {walletInfo.address}</div>
