@@ -1,7 +1,11 @@
+import pdb
+import sys
 from backend.blockchain.block import Block
 from backend.wallet.transaction import Transaction
 from backend.wallet.wallet import Wallet
 from backend.config import MINING_REWARD_INPUT
+
+# sys.setrecursionlimit(100000)
 
 class Blockchain:
     """
@@ -24,12 +28,12 @@ class Blockchain:
         """
 
         if len(chain) <= len(self.chain):
-            raise Exception('The incoming chain must be longer.')
+            raise Exception('Cannot replace. The incoming chain must be longer.')
 
         try:
             Blockchain.is_valid_chain(chain)
         except Exception as e:
-            raise Exception(f'The incoming chain is invalid {e}')
+            raise Exception(f'Cannot replace. The incoming chain is invalid {e}')
 
         self.chain = chain
 
@@ -62,26 +66,28 @@ class Blockchain:
         if chain[0] != Block.genesis():
             raise Exception('The genesis block must be valid')
 
+        # pdb.set_trace()
         for i in range(1, len(chain)):
             block = chain[i]
             last_block = chain[i-1]
             Block.is_valid_block(last_block, block)
 
-        Blockchain.is_valid_transactions(chain)
+        Blockchain.is_valid_transaction_chain(chain)
 
     @staticmethod
     def is_valid_transaction_chain(chain):
         """
         Validate a transaction chain.
         """
-        transaction_ids = set()
 
         for i in range(len(chain)):
+            transaction_ids = set(chain[i].data[1]['id'])
+            pdb.set_trace()
             block = chain[i]
             has_mining_reward = False
 
-            for transaction in block.data:
-                transaction = Transaction.from_json(transaction)
+            for transaction_json in block.data:
+                transaction = Transaction.from_json(transaction_json)
 
                 if transaction.id in transaction_ids:
                     raise Exception(f'Transaction {transaction.id} is not unique')

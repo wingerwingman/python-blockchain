@@ -1,3 +1,4 @@
+import pdb
 import time
 from backend.util.crypto_hash import crypto_hash
 from backend.util.hex_to_binary import hex_to_binary
@@ -96,8 +97,10 @@ class Block:
         """
         Validate the given block.
         """
-        if block.last_hash != last_block.hash:
-            raise Exception('The block last_hash must be correct')
+        # if block.last_hash != last_block.hash:
+        #     raise Exception('The block last_hash must be correct')
+        # pdb.set_trace()
+        
 
         if hex_to_binary(block.hash)[0:block.difficulty] != '0' * block.difficulty:
             raise Exception('The block hash must meet the difficulty requirement')
@@ -117,7 +120,7 @@ class Block:
 
 def main():
     genesis_block = Block.genesis()
-    bad_block = Block.mine_block(Block.genesis(), 'foo')
+    bad_block = Block.mine_block(genesis_block(), 'foo')
     bad_block.last_hash = 'evil_data'
 
     try:
